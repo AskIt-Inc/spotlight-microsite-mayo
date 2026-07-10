@@ -3,11 +3,6 @@ import path from 'path'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 
-const githubRepoName = process.env.GITHUB_REPOSITORY?.split('/')[1]
-const githubPagesBase = process.env.GITHUB_PAGES === 'true' && githubRepoName
-  ? `/${githubRepoName}/`
-  : '/'
-
 export default defineConfig({
   plugins: [
     // The React and Tailwind plugins are both required for Make, even if
@@ -28,6 +23,7 @@ export default defineConfig({
   // Required for React Router — serve index.html for all routes
   appType: 'spa',
 
-  // Local/dev stays rooted at `/`; GitHub Pages builds use the repo subpath.
-  base: githubPagesBase,
+  // Relative asset paths let the same build work on both repo-path Pages
+  // URLs and a root-level custom domain such as mayo.oneamyloidosisvoice.com.
+  base: './',
 })
