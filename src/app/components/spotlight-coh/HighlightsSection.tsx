@@ -19,7 +19,7 @@ const highlights = [
     text: 'Mayo Clinic researchers helped develop an FDA-cleared AI echocardiography tool that can screen for amyloid cardiomyopathy from a standard echo video clip.',
   },
   {
-    eyebrow: 'Clinical Excellence',
+    eyebrow: 'Clinical & Surgical Excellence',
     label: 'Advanced Treatment Pathways',
     text: 'Patients can be evaluated for chemotherapy, targeted therapies, supportive heart and kidney care, stem cell transplantation, ventricular assist devices, and organ transplantation when appropriate.',
   },

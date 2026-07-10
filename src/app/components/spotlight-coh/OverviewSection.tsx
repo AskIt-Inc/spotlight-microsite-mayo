@@ -6,26 +6,25 @@ const BRAND = 'var(--oav-brand)';
 
 const pillars = [
   {
-    icon: '🩺',
-    label: '70-Year Legacy of Care',
-    text: 'Mayo Clinic has cared for people with amyloidosis for more than seven decades, with dedicated expertise across its Arizona, Florida, and Minnesota campuses.',
-  },
-  {
     icon: '🧑‍⚕️',
-    label: 'Deep Amyloidosis Experience',
-    text: 'Mayo Clinic specialists treat thousands of people with amyloidosis each year, giving the team broad experience with both common and complex presentations of this rare disease.',
+    label: 'Multidisciplinary, Patient-First Care',
+    text: 'Hematology, cardiology, neurology, nephrology, pathology, transplantation and other specialties work together to coordinate care around the patient.',
   },
   {
     icon: '🔬',
     label: 'Advanced Diagnostic Precision',
-    text: 'Mass spectrometry, specialized imaging, and coordinated pathology support help identify the exact amyloid type and guide treatment decisions.',
+    text: 'Mayo Clinic uses tools such as mass spectrometry and specialized imaging to identify the exact amyloid type and guide treatment decisions.',
+  },
+  {
+    icon: '🏥',
+    label: 'Research and Treatment Leadership',
+    text: 'Mayo Clinic has helped shape modern amyloidosis care through clinical research, diagnostic standards, and access to advanced therapies and clinical trials.',
   },
 ];
 
 const programParagraphs = [
-  'Mayo Clinic\'s Amyloidosis Program is built around whole-person, highly coordinated care for all major forms of amyloidosis. A multidisciplinary evaluation can often be completed in about three business days, giving patients a precise diagnosis, an assessment of prognosis, and a personalized treatment plan.',
-  'The program brings together experts across hematology, cardiology, neurology, nephrology, pathology, radiology, transplantation, and specialized nursing support so care decisions are made together instead of in isolation.',
-  'Mayo Clinic has also reported a historical footprint of 7,302 unique amyloidosis patients treated between 1963 and 2016, reflecting the program\'s long-standing depth of experience and its role in shaping modern amyloidosis care.',
+  'Mayo Clinic\'s Amyloidosis Program is built around whole-person, highly coordinated care for all major forms of amyloidosis. A typical multidisciplinary evaluation can often be completed in about three business days, giving patients a precise diagnosis, an assessment of prognosis, and a personalized treatment plan.',
+  'The program brings together experts across multiple specialties with advanced laboratory, imaging and pathology support. Mayo Clinic has also reported a historical footprint of 7,302 unique amyloidosis patients treated between 1963 and 2016, reflecting the program\'s long-standing depth of experience.',
 ];
 
 const recognitionPoints = [
@@ -127,9 +126,32 @@ export const OverviewSection: React.FC = () => (
             fontFamily: FONT,
           }}
         >
-          Mayo Clinic combines long-standing amyloidosis experience, precise subtype diagnosis,
-          and coordinated multispecialty care across Arizona, Florida, and Minnesota so patients
-          can move from evaluation to treatment planning through one connected program.
+          70-Year Legacy of Care: Mayo Clinic has cared for people with amyloidosis for more
+          than seven decades, with dedicated expertise across its Arizona, Florida and Minnesota
+          campuses.
+        </p>
+      </blockquote>
+
+      <blockquote
+        style={{
+          margin: '0 0 32px 0',
+          borderLeft: `4px solid ${BRAND}`,
+          paddingLeft: '20px',
+        }}
+      >
+        <p
+          style={{
+            fontSize: '20px',
+            fontWeight: 300,
+            color: '#000000',
+            lineHeight: 1.5,
+            margin: 0,
+            fontFamily: FONT,
+          }}
+        >
+          Deep Amyloidosis Experience: Mayo Clinic specialists treat thousands of people with
+          amyloidosis each year, giving the team broad experience with both common and complex
+          presentations of this rare disease.
         </p>
       </blockquote>
 
