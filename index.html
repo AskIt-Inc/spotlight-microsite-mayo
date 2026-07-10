@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mayo Clinic Amyloidosis Program Spotlight Series · September 2026</title>
+    <script>
+      (() => {
+        if (
+          window.location.hostname === 'mayo.oneamyloidosisvoice.com' &&
+          !new URLSearchParams(window.location.search).has('showBugherd')
+        ) {
+          const url = new URL(window.location.href);
+          url.searchParams.set('showBugherd', 'true');
+          window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
+        }
+      })();
+    </script>
+    <script
+      type="text/javascript"
+      src="https://www.bugherd.com/sidebarv2.js?apikey=xikp9wwle4yhzyqt9xjrwg"
+      async="true"
+    ></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

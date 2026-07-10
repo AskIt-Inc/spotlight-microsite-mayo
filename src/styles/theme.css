@@ -1,0 +1,578 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+  --font-body: gotham, sans-serif;
+
+  /* OAV Brand Design System */
+
+  /* Backgrounds */
+  --oav-page-bg: #F5F5F5;
+  --oav-card-bg: #ffffff;
+  --oav-utility-bg: #F8F5EE;
+  --oav-icon-bg: #F5F5F5;
+  --oav-input-bg: #ffffff;
+  --oav-stripe-row: #fafafa;
+
+  /* Text */
+  --oav-text-primary: #000000;
+  --oav-text-secondary: #000000;
+  --oav-text-muted: #9CA3AF;
+
+  /* Borders */
+  --oav-border: #E5E5E5;
+  --oav-border-light: #EEEEEE;
+  --oav-utility-border: #E0D5C0;
+
+  /* Brand tokens */
+  --oav-brand: #1C1C1C;
+  --oav-brand-hover: #000000;
+  --oav-brand-light: #F8F5EE;
+
+  /* Accent (links) */
+  --oav-accent: #F3C64E;
+  --oav-accent-hover: #CFA13A;
+  --oav-accent-text: #8A6400;
+
+  /* Structural */
+  --oav-header-bg: #ffffff;
+  --oav-footer-bg: #ffffff;
+  --oav-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  /* Typography scale */
+  --text-h1: 40px;
+  --text-h2: 28px;
+  --text-h3: 20px;
+  --text-base: 16px;
+  --text-small: 14px;
+
+  --lh-h1: 1.2;
+  --lh-h2: 1.3;
+  --lh-h3: 1.4;
+  --lh-body: 1.7;
+  --lh-small: 1.5;
+
+  --fw-body: 300;
+  --fw-heading-section: 400;
+  --fw-heading-page: 700;
+
+  /* Legacy aliases (keep so shadcn tokens still resolve) */
+  --sttt-page-bg: var(--oav-page-bg);
+  --sttt-card-bg: var(--oav-card-bg);
+  --sttt-utility-bg: var(--oav-utility-bg);
+  --sttt-icon-bg: var(--oav-icon-bg);
+  --sttt-input-bg: var(--oav-input-bg);
+  --sttt-stripe-row: var(--oav-stripe-row);
+  --sttt-text-primary: var(--oav-text-primary);
+  --sttt-text-secondary: var(--oav-text-secondary);
+  --sttt-text-muted: var(--oav-text-muted);
+  --sttt-border: var(--oav-border);
+  --sttt-border-light: var(--oav-border-light);
+  --sttt-utility-border: var(--oav-utility-border);
+  --sttt-brand: var(--oav-brand);
+  --sttt-brand-hover: var(--oav-brand-hover);
+  --sttt-brand-light: var(--oav-brand-light);
+  --sttt-header-bg: var(--oav-header-bg);
+  --sttt-footer-bg: var(--oav-footer-bg);
+  --sttt-card-shadow: var(--oav-card-shadow);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply outline-ring/50;
+  }
+
+  body {
+    font-family: gotham, sans-serif;
+    font-weight: var(--fw-body);
+    background: var(--oav-page-bg);
+    color: var(--oav-text-primary);
+  }
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  h1 {
+    font-size: var(--text-h1);
+    font-weight: var(--fw-heading-page);
+    line-height: var(--lh-h1);
+  }
+
+  h2 {
+    font-size: var(--text-h2);
+    font-weight: var(--fw-heading-section);
+    line-height: var(--lh-h2);
+  }
+
+  h3 {
+    font-size: var(--text-h3);
+    font-weight: var(--fw-heading-section);
+    line-height: var(--lh-h3);
+  }
+
+  h4 {
+    font-size: var(--text-base);
+    font-weight: var(--fw-heading-section);
+    line-height: var(--lh-body);
+  }
+
+  p, li {
+    font-weight: var(--fw-body);
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  label {
+    font-size: var(--text-base);
+    font-weight: var(--fw-body);
+    line-height: var(--lh-body);
+  }
+
+  button {
+    font-size: var(--text-base);
+    font-weight: var(--fw-body);
+    line-height: var(--lh-body);
+  }
+
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--fw-body);
+    line-height: var(--lh-body);
+  }
+}
+
+/* ── Prevent horizontal scroll at the document level ──────────────────────── */
+/* Correct place: html/body, NOT a wrapper div (which creates a clipping BFC) */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* ── Responsive breakpoints ─────────────────────────────────────────────────── */
+
+/* Nav collapse: larger OAV-style menu needs more horizontal room */
+@media (max-width: 1200px) {
+  .hidden-mobile-nav {
+    display: none !important;
+  }
+}
+
+/* Mobile hamburger button — hidden on desktop, shown on mobile */
+@media (min-width: 1201px) {
+  .mobile-menu-btn {
+    display: none !important;
+  }
+
+  /* Desktop: sessions list expands to full height — no scroll */
+  .sessions-list {
+    max-height: none;
+    overflow-y: visible;
+  }
+}
+
+@media (max-width: 1200px) {
+
+  /* ── Show hamburger ─────────────────────────────────────────────────────────── */
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* ── Header: tighten padding + shrink OAV logo ──────────────────────────────── */
+  /* ROOT CAUSE OF HORIZONTAL OVERFLOW: OAV SVG logo at 72px height renders       */
+  /* ~250-300px wide. With flexShrink:0, gap:24px, padding:48px, and buttons,     */
+  /* header totals 360px+ on a 360px viewport → entire page layout shifts right.  */
+  .site-header-inner {
+    padding: 0 16px !important;
+    gap: 12px !important;
+    height: 64px !important;
+  }
+
+  /* Logo link: allow it to shrink so it can't push the header wider than viewport */
+  .oav-logo-link {
+    flex-shrink: 1 !important;
+    min-width: 0 !important;
+    overflow: hidden;
+  }
+
+  /* Logo img: cap at 140px wide, scale down height proportionally */
+  .oav-logo-img {
+    height: 44px !important;
+    max-width: 140px !important;
+    width: auto !important;
+    object-fit: contain !important;
+  }
+
+  /* ── Page grid: two-column → single column ──────────────────────────────────── */
+  /* Zero horizontal padding — each child section carries its own 16px h-padding */
+  .spotlight-content-grid {
+    flex-direction: column !important;
+    align-items: stretch !important;   /* fix: flex-start causes children to size to max-content width */
+    padding: 0 0 48px !important;
+    gap: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Sidebar: unstick, full-width, floats above main content */
+  /* Give sidebar its own 16px side padding to match sections below */
+  .spotlight-sidebar-wrapper {
+    width: 100% !important;
+    position: static !important;
+    align-self: auto !important;
+    order: -1;
+    padding: 16px 16px 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Sessions list: fixed height on mobile */
+  .sessions-list {
+    max-height: 360px;
+    overflow-y: auto;
+  }
+
+  /* ── Hero h1 — scale down ───────────────────────────────────────────────────── */
+  .hero-h1 {
+    font-size: 22px !important;
+  }
+
+  /* ── v3 logo bar: tighten gap + scale logos on mobile ───────────────────────── */
+  .v3-logo-bar {
+    gap: 20px !important;
+  }
+  .v3-logo-bar img {
+    height: 40px !important;
+    max-width: 130px !important;
+  }
+
+  /* ── v3 title strip (ROW 2): stack + centre on mobile ───────────────────────── */
+  .v3-title-block {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 6px !important;
+  }
+
+  .v3-title-dot {
+    display: none !important;
+  }
+
+  /* ── v3 subscribe block: stack QR below text on mobile ──────────────────────── */
+  .v3-subscribe-block {
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+  .v3-qr-block {
+    align-items: flex-start !important;
+    flex-direction: row !important;
+    gap: 12px !important;
+  }
+
+  /* Allow title to wrap + reduce font */
+  .series-strip-title {
+    font-size: 22px !important;
+    white-space: normal !important;
+    text-align: center;
+    line-height: 1.15 !important;
+  }
+
+  /* ── Hero brand band ────────────────────────────────────────────────────────── */
+  /* Stack: text column above partner logo */
+  .hero-content-row {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 14px !important;
+    text-align: center;
+  }
+
+  /* Center the FEATURING row and h1 */
+  .hero-left-col {
+    align-items: center !important;
+    text-align: center;
+    width: 100%;
+  }
+
+  .hero-left-col > div {
+    width: 100%;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .hero-featuring-row {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* Scale h1 down */
+  .hero-h1 {
+    font-size: 24px !important;
+    line-height: 1.2 !important;
+    max-width: 280px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+  }
+
+  .hero-program-title {
+    font-size: 1.15rem !important;
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Partner logo: legible size, centred pill */
+  .hero-logo-col {
+    display: flex !important;
+    justify-content: center;
+    width: 100%;
+    margin-right: 0 !important;
+  }
+
+  .hero-logo-col img {
+    width: 121px !important;
+    height: auto !important;
+  }
+
+  .hero-logo-col > div {
+    min-width: 165px !important;
+    min-height: 60px !important;
+    padding: 8px 14px !important;
+  }
+
+  /* ── v2 sections: reduce horizontal padding on mobile ─────────────────────── */
+  .v2-section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
+  }
+
+  /* ── Overview section ───────────────────────────────────────────────────────── */
+  /* Pillars: 3-col grid → single column */
+  .overview-pillars {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Team cards ─────────────────────────────────────────────────────────────── */
+  /* Allow CTAs to wrap to a new row beneath photo + identity */
+  .compact-card {
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+  }
+
+  /* Identity fills its row naturally with photo */
+  .compact-card-identity {
+    flex: 1 !important;
+    min-width: 0;
+  }
+
+  /* CTAs: full-width new row, horizontal flow, left-aligned */
+  .compact-card-ctas {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    margin-top: 8px !important;
+    padding-top: 10px !important;
+    border-top: 1px solid var(--oav-border) !important;
+  }
+
+  /* ── v1 team grid (portrait cards) → single column ─────────────────────────── */
+  .team-card-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Dashboard tiles → single column ───────────────────────────────────────── */
+  .dashboard-tile-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Section inner padding (v1 generic) ─────────────────────────────────────── */
+  .section-inner {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* ── TeamSection + TrialsSection: add horizontal padding (no v2-section class) */
+  /* These sections have padding: 0 horizontal inline — add on mobile so cards   */
+  /* don't go edge-to-edge with zero breathing room                               */
+  .team-section-inner,
+  .trials-section-inner {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* ── TrialCard: stack button below content on mobile ───────────────────────── */
+  .trial-card {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  /* Express Interest button goes full-width when stacked */
+  .trial-card > div:last-child {
+    width: 100%;
+  }
+
+  .trial-card > div:last-child button {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Fix justified text on mobile - force left align for readability */
+  ul, ol, p, li {
+    text-align: left !important;
+  }
+
+  /* ── Prevent images from overflowing ───────────────────────────────────────── */
+  img {
+    max-width: 100%;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   TABLET / iPad (769px – 1024px)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  /* Page grid: sidebar below main content on tablet */
+  .spotlight-content-grid {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 24px !important;
+    padding: 0 24px 48px !important;
+  }
+
+  /* Sidebar: unstick, full-width on tablet */
+  .spotlight-sidebar-wrapper {
+    width: 100% !important;
+    position: static !important;
+    align-self: auto !important;
+    order: -1;
+  }
+
+  /* Overview pillars: 2 columns instead of 3 */
+  .overview-pillars {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Director profile: reduce photo size */
+  .director-profile-row img {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  /* Series strip: slightly smaller title */
+  .series-strip-title {
+    font-size: 24px !important;
+  }
+
+  /* Series strip row: allow wrapping */
+  .series-strip-row {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 12px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   MOBILE ADDITIONS (max-width: 768px) — supplement existing rules
+   ═══════════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Series strip row: stack vertically, centre */
+  .series-strip-row {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 10px !important;
+    text-align: center;
+  }
+
+  /* Hide divider on mobile */
+  .series-strip-divider {
+    display: none !important;
+  }
+
+  /* Series strip logo */
+  .series-strip-logo-img {
+    height: 32px !important;
+  }
+
+  /* Director profile: stack photo above text */
+  .director-profile-row {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  /* Prevent justified/centered text in body content on mobile */
+  .director-profile-row ~ ul,
+  .director-profile-row ~ ul li {
+    text-align: left !important;
+  }
+
+  .director-profile-row img {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  /* v5 team tabs: full width, smaller font */
+  .team-tabs-bar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .team-tabs-bar button {
+    font-size: 13px !important;
+    padding: 10px 16px !important;
+    white-space: nowrap;
+  }
+
+  .team-tabs-bar img {
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
