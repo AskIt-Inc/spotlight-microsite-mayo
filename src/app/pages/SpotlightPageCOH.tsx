@@ -28,8 +28,8 @@ export const SpotlightPageCOH: React.FC = () => {
         <div style={{ flex: 1, minWidth: 0 }}>
           <OverviewSection />
           <AboutProgramSection />
-          <HighlightsSection />
           <TeamSection />
+          <HighlightsSection />
           <TrialsSection />
         </div>
 
@@ -42,7 +42,6 @@ export const SpotlightPageCOH: React.FC = () => {
             position: 'sticky' as const,
             top: '104px',
             alignSelf: 'flex-start',
-            marginTop: '5px',
           }}
         >
           <SessionsSidebar />

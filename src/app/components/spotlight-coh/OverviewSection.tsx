@@ -292,81 +292,110 @@ export const DirectorsSection: React.FC = () => {
 };
 
 export const AboutProgramSection: React.FC = () => (
-  <section className="section-inner" style={{ background: 'var(--oav-page-bg)', padding: '24px 0 8px' }}>
-    <SectionHeading
-      title="About the Program"
-      subtitle="Whole-person amyloidosis care with diagnosis, prognosis, and treatment planning coordinated together"
-    />
-
-    <div
+  <section
+    style={{
+      background: 'var(--oav-page-bg)',
+      padding: '32px 0 24px',
+    }}
+  >
+    <details
       style={{
         background: 'var(--oav-card-bg)',
         border: '1px solid var(--oav-border)',
-        borderRadius: '12px',
-        padding: '24px',
-        boxShadow: 'var(--oav-card-shadow)',
+        borderRadius: '8px',
+        overflow: 'hidden',
       }}
     >
-      {programParagraphs.map((paragraph) => (
-        <p
-          key={paragraph}
-          style={{
-            fontSize: '14px',
-            fontWeight: 300,
-            color: '#000000',
-            lineHeight: 1.75,
-            margin: '0 0 14px',
-            fontFamily: FONT,
-          }}
-        >
-          {paragraph}
-        </p>
-      ))}
-
-      <div
+      <summary
         style={{
-          marginTop: '8px',
-          padding: '18px',
-          borderRadius: '10px',
-          background: 'var(--oav-brand-light)',
-          border: '1px solid var(--oav-utility-border)',
+          cursor: 'pointer',
+          padding: '18px 20px',
+          fontFamily: FONT,
+          listStylePosition: 'inside',
         }}
       >
-        <h3
+        <span style={{ fontSize: '20px', fontWeight: 700, color: '#000000' }}>
+          About Mayo Clinic Amyloidosis Program
+        </span>
+        <span
           style={{
-            fontSize: '17px',
-            fontWeight: 700,
-            color: 'var(--oav-brand)',
-            margin: '0 0 10px',
-            fontFamily: FONT,
+            display: 'block',
+            paddingLeft: '22px',
+            marginTop: '5px',
+            fontSize: '13px',
+            fontWeight: 300,
+            color: '#4B5563',
+            lineHeight: 1.5,
           }}
         >
-          Why Mayo is recognized in this field
-        </h3>
-        <ul
+          Learn how Mayo Clinic coordinates multidisciplinary amyloidosis diagnosis, care, and treatment planning
+        </span>
+      </summary>
+
+      <div
+        style={{ borderTop: '1px solid var(--oav-border)', padding: '20px' }}
+      >
+        {programParagraphs.map((paragraph, index) => (
+          <p
+            key={paragraph}
+            style={{
+              fontSize: '14px',
+              fontWeight: 300,
+              color: '#000000',
+              lineHeight: 1.7,
+              margin: index < programParagraphs.length - 1 ? '0 0 14px 0' : 0,
+              fontFamily: FONT,
+            }}
+          >
+            {paragraph}
+          </p>
+        ))}
+
+        <div
           style={{
-            margin: 0,
-            paddingLeft: '18px',
-            display: 'grid',
-            gap: '8px',
+            marginTop: '18px',
+            padding: '18px',
+            borderRadius: '10px',
+            background: 'var(--oav-brand-light)',
+            border: '1px solid var(--oav-utility-border)',
           }}
         >
-          {recognitionPoints.map((point) => (
-            <li
-              key={point}
-              style={{
-                fontSize: '14px',
-                fontWeight: 300,
-                color: '#000000',
-                lineHeight: 1.7,
-                fontFamily: FONT,
-              }}
-            >
-              {point}
-            </li>
-          ))}
-        </ul>
+          <h3
+            style={{
+              fontSize: '17px',
+              fontWeight: 700,
+              color: 'var(--oav-brand)',
+              margin: '0 0 10px',
+              fontFamily: FONT,
+            }}
+          >
+            Why Mayo is recognized in this field
+          </h3>
+          <ul
+            style={{
+              margin: 0,
+              paddingLeft: '18px',
+              display: 'grid',
+              gap: '8px',
+            }}
+          >
+            {recognitionPoints.map((point) => (
+              <li
+                key={point}
+                style={{
+                  fontSize: '14px',
+                  fontWeight: 300,
+                  color: '#000000',
+                  lineHeight: 1.7,
+                  fontFamily: FONT,
+                }}
+              >
+                {point}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
+    </details>
   </section>
 );
