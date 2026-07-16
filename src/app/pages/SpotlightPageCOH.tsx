@@ -1,6 +1,6 @@
 import React from 'react';
 import { HeroSection }      from '../components/spotlight-coh/HeroSection';
-import { AboutProgramSection, DirectorsSection, OverviewSection } from '../components/spotlight-coh/OverviewSection';
+import { AboutProgramSection, OverviewSection } from '../components/spotlight-coh/OverviewSection';
 import { HighlightsSection } from '../components/spotlight-coh/HighlightsSection';
 import { TeamSection }      from '../components/spotlight-coh/TeamSection';
 import { TrialsSection }    from '../components/spotlight-coh/TrialsSection';
@@ -29,7 +29,6 @@ export const SpotlightPageCOH: React.FC = () => {
           <OverviewSection />
           <AboutProgramSection />
           <HighlightsSection />
-          <DirectorsSection />
           <TeamSection />
           <TrialsSection />
         </div>
