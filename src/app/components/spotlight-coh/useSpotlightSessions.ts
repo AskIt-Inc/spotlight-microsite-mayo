@@ -4,6 +4,7 @@ const SESSIONS_API_URL =
   'https://somebodytotalkto.com/api/spotlight/microsite/sessions?partner=13455&status=all';
 
 interface ApiPresenter {
+  uid?: number;
   display_name: string;
   first_name: string;
   last_name: string;
@@ -41,6 +42,7 @@ export interface NormalizedSession {
   title: string;
   description: string;
   presenter: string;
+  presenterUids: number[];
   presenterLastName: string;
   status: 'upcoming' | 'completed' | 'pending';
   regUrl: string;
@@ -120,6 +122,9 @@ function normalizeApiSessions(apiSessions: ApiSession[]): NormalizedSession[] {
       title: session.title,
       description: session.description,
       presenter: presenterName(firstPresenter),
+      presenterUids: (session.presenters ?? [])
+        .map((presenter) => presenter.uid)
+        .filter((uid): uid is number => Number.isInteger(uid)),
       presenterLastName: firstPresenter?.last_name ?? '',
       status: dateParts.status,
       regUrl,
