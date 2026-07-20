@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const SESSIONS_API_URL =
-  'https://somebodytotalkto.com/api/spotlight/microsite/sessions?partner=13455';
+  'https://somebodytotalkto.com/api/spotlight/microsite/sessions?partner=13455&status=all';
 
 interface ApiPresenter {
   display_name: string;
@@ -25,7 +25,7 @@ interface ApiSession {
   };
   short_url?: string;
   moderation_state?: string;
-  approval_status?: 'approved' | 'pending';
+  approval_status?: 'approved' | 'pending' | 'draft';
 }
 
 interface ApiSessionsResponse {
@@ -46,7 +46,8 @@ export interface NormalizedSession {
   regUrl: string;
   canRegister: boolean;
   hasPresenter: boolean;
-  approvalStatus: 'approved' | 'pending';
+  approvalStatus: 'approved' | 'pending' | 'draft';
+  workflowStatus: 'draft' | 'pending' | 'published';
   timestamp?: number;
 }
 
@@ -97,7 +98,17 @@ function normalizeApiSessions(apiSessions: ApiSession[]): NormalizedSession[] {
   return apiSessions.map((session) => {
     const firstPresenter = session.presenters?.[0];
     const dateParts = parseApiDateParts(session.date ?? '', session.timestamp);
-    const approvalStatus = session.approval_status === 'pending' ? 'pending' : 'approved';
+    const approvalStatus = session.approval_status === 'draft'
+      ? 'draft'
+      : session.approval_status === 'pending'
+        ? 'pending'
+        : 'approved';
+    const workflowStatus = session.moderation_state === 'draft'
+      ? 'draft'
+      : ['pending', 'pending_review'].includes(session.moderation_state ?? '')
+        || approvalStatus === 'pending'
+        ? 'pending'
+        : 'published';
     const regUrl = session.reg_link?.url || session.short_url || '';
 
     return {
@@ -112,9 +123,10 @@ function normalizeApiSessions(apiSessions: ApiSession[]): NormalizedSession[] {
       presenterLastName: firstPresenter?.last_name ?? '',
       status: dateParts.status,
       regUrl,
-      canRegister: approvalStatus === 'approved' && Boolean(regUrl),
+      canRegister: workflowStatus === 'published' && approvalStatus === 'approved' && Boolean(regUrl),
       hasPresenter: Boolean(firstPresenter),
       approvalStatus,
+      workflowStatus,
       timestamp: session.timestamp,
     };
   });
