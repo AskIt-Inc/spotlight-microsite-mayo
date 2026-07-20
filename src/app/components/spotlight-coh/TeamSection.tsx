@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { UserRound, X } from 'lucide-react';
+import React, { useMemo, useState } from 'react';
+import { CalendarDays, UserRound, X } from 'lucide-react';
 import {
   type NormalizedProfile,
   useSpotlightProfiles,
 } from './useSpotlightProfiles';
+import { useSpotlightSessions } from './useSpotlightSessions';
 
 const FONT = 'gotham, sans-serif';
 
@@ -191,7 +192,10 @@ const ProfilePhoto: React.FC<{
   </div>
 );
 
-const ProfileRow: React.FC<{ profile: NormalizedProfile }> = ({ profile }) => {
+const ProfileRow: React.FC<{
+  profile: NormalizedProfile;
+  sessionDates: string[];
+}> = ({ profile, sessionDates }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -252,6 +256,23 @@ const ProfileRow: React.FC<{ profile: NormalizedProfile }> = ({ profile }) => {
                 .join(' · ')}
             </p>
           )}
+          {sessionDates.length > 0 && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                color: 'var(--oav-brand)',
+                fontSize: '14px',
+                fontWeight: 600,
+                marginTop: '6px',
+                fontFamily: FONT,
+              }}
+            >
+              <CalendarDays size={16} aria-hidden="true" />
+              <span>{sessionDates.join(' · ')}</span>
+            </div>
+          )}
         </div>
         {profile.bio && (
           <button
@@ -281,6 +302,26 @@ const ProfileRow: React.FC<{ profile: NormalizedProfile }> = ({ profile }) => {
 
 export const TeamSection: React.FC = () => {
   const { profiles, loading } = useSpotlightProfiles();
+  const { sessions } = useSpotlightSessions();
+  const sessionDatesByProfile = useMemo(() => {
+    const datesByProfile = new Map<number, string[]>();
+
+    for (const session of sessions) {
+      if (!session.month || !session.day) continue;
+
+      const month = session.month.charAt(0) + session.month.slice(1).toLowerCase();
+      const date = `${month} ${session.day}`;
+      for (const presenterUid of session.presenterUids) {
+        const dates = datesByProfile.get(presenterUid) ?? [];
+        if (!dates.includes(date)) {
+          dates.push(date);
+        }
+        datesByProfile.set(presenterUid, dates);
+      }
+    }
+
+    return datesByProfile;
+  }, [sessions]);
 
   return (
     <section className="section-inner" style={{ background: 'var(--oav-page-bg)', padding: '24px 0 8px' }}>
@@ -325,7 +366,11 @@ export const TeamSection: React.FC = () => {
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {profiles.map((profile) => (
-            <ProfileRow key={profile.uid} profile={profile} />
+            <ProfileRow
+              key={profile.uid}
+              profile={profile}
+              sessionDates={sessionDatesByProfile.get(profile.uid) ?? []}
+            />
           ))}
         </div>
       )}
