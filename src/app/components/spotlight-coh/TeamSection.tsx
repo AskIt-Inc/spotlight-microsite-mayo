@@ -226,7 +226,7 @@ const ProfileRow: React.FC<{
           >
             {profile.displayName}
           </h3>
-          {profile.titlePrefix && (
+          {(profile.titlePrefix || profile.specialtyLine1) && (
             <p
               style={{
                 fontSize: '14px',
@@ -237,10 +237,12 @@ const ProfileRow: React.FC<{
                 fontFamily: FONT,
               }}
             >
-              {profile.titlePrefix}
+              {[profile.titlePrefix, profile.specialtyLine1]
+                .filter(Boolean)
+                .join(', ')}
             </p>
           )}
-          {(profile.specialtyLine1 || profile.specialtyLine2) && (
+          {profile.specialtyLine2 && (
             <p
               style={{
                 fontSize: '14px',
@@ -251,9 +253,7 @@ const ProfileRow: React.FC<{
                 fontFamily: FONT,
               }}
             >
-              {[profile.specialtyLine1, profile.specialtyLine2]
-                .filter(Boolean)
-                .join(' · ')}
+              {profile.specialtyLine2}
             </p>
           )}
           {sessionDates.length > 0 && (
