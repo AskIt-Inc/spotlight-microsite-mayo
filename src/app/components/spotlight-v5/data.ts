@@ -28,14 +28,6 @@ export interface SupportStaff {
   site: 'main' | 'endeavor';
 }
 
-export interface TrialV4 {
-  id: string;
-  name: string;
-  category: 'past-uchicago' | 'enrolling-uchicago' | 'upcoming-uchicago' | 'enrolling-endeavor' | 'al-placeholder';
-  status: string;
-  note?: string;
-}
-
 // ─── Main Site Providers (ALL team members, ordered by specialty) ────────────
 export const mainSiteProviders: ClinicianV4[] = [
   // ── CARDIOLOGY ──
@@ -357,22 +349,4 @@ export const supportStaff: SupportStaff[] = [
   { id: 1, name: 'Elizabeth Hushka', role: 'Advanced Heart Failure NP', site: 'main' },
   { id: 2, name: 'Samantha de Santiago', role: 'Advanced Heart Failure / Amyloid RN', site: 'main' },
   { id: 3, name: 'Tracey Silverstein', role: 'Amyloid Navigator RN · Trial Coordinator', site: 'endeavor' },
-];
-
-// ─── Clinical Trials ────────────────────────────────────────────────────────
-export const trialsV4: TrialV4[] = [
-  { id: 'past-1', name: 'ApolloB', category: 'past-uchicago', status: 'Completed' },
-  { id: 'past-2', name: 'Helios B', category: 'past-uchicago', status: 'Completed' },
-  { id: 'past-3', name: 'Attribute CM', category: 'past-uchicago', status: 'Completed' },
-  { id: 'enroll-uc-1', name: 'Act Early', category: 'enrolling-uchicago', status: 'Recruiting', note: 'Dr. Sarswat on steering committee' },
-  { id: 'enroll-uc-2', name: 'Alnylam 007', category: 'enrolling-uchicago', status: 'Recruiting', note: 'Open label extension' },
-  { id: 'enroll-uc-3', name: 'Trace AI', category: 'enrolling-uchicago', status: 'Recruiting' },
-  { id: 'enroll-uc-4', name: 'MaesTTRo', category: 'enrolling-uchicago', status: 'Recruiting' },
-  { id: 'upcoming-uc-1', name: 'Cleopattra', category: 'upcoming-uchicago', status: 'Coming June 2026' },
-  { id: 'upcoming-uc-2', name: 'ATTRiumph', category: 'upcoming-uchicago', status: 'Coming July 2026' },
-  { id: 'upcoming-uc-3', name: 'Magnitude', category: 'upcoming-uchicago', status: 'Coming July 2026' },
-  { id: 'enroll-end-1', name: 'Alnylam 007', category: 'enrolling-endeavor', status: 'Recruiting', note: 'Open label extension' },
-  { id: 'enroll-end-2', name: 'Cleopatrra', category: 'enrolling-endeavor', status: 'Recruiting' },
-  { id: 'enroll-end-3', name: 'Triton CM', category: 'enrolling-endeavor', status: 'Recruiting' },
-  { id: 'al-placeholder', name: 'AL Amyloidosis Trials', category: 'al-placeholder', status: 'Pending', note: 'Awaiting details from Dr. Derman and Dr. Cooperrider' },
 ];
