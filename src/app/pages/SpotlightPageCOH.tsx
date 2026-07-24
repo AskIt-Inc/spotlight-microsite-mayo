@@ -5,6 +5,7 @@ import { HighlightsSection } from '../components/spotlight-coh/HighlightsSection
 import { TeamSection }      from '../components/spotlight-coh/TeamSection';
 import { TrialsSection }    from '../components/spotlight-coh/TrialsSection';
 import { SessionsSidebar }  from '../components/spotlight-coh/SessionsSidebar';
+import { LearnMoreSection } from '../components/spotlight-coh/LearnMoreSection';
 
 // Mayo microsite page layout.
 
@@ -31,6 +32,7 @@ export const SpotlightPageCOH: React.FC = () => {
           <TeamSection />
           <HighlightsSection />
           <TrialsSection />
+          <LearnMoreSection />
         </div>
 
         {/* Right — sticky sessions sidebar */}

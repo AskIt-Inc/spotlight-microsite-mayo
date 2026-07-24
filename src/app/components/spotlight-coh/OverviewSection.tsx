@@ -27,11 +27,7 @@ const programParagraphs = [
   'The program brings together experts across multiple specialties with advanced laboratory, imaging and pathology support. Mayo Clinic has also reported a historical footprint of 7,302 unique amyloidosis patients treated between 1963 and 2016, reflecting the program\'s long-standing depth of experience.',
 ];
 
-const recognitionPoints = [
-  'Multidisciplinary, patient-first care across the specialties most often involved in amyloidosis diagnosis, treatment, and follow-up.',
-  'Accurate amyloid subtype identification supported by specialized pathology and imaging tools.',
-  'Access to advanced treatment pathways that may include chemotherapy, targeted therapies, stem cell transplantation, ventricular assist devices, and organ transplantation when needed.',
-];
+const recognitionDescription = 'Backed by a 70-year legacy across its Arizona, Florida, and Minnesota campuses, the Mayo Clinic Amyloidosis Program is a global powerhouse treating over 3,200 patients annually. The program delivers holistic, patient-centered care, housing a complete multidisciplinary team under a single roof to provide efficient three-day evaluations. Renowned for landmark milestones, including the development of CyBorD therapy, mass-spectrometry amyloid typing, and FDA-cleared AI diagnostics, Mayo Clinic seamlessly integrates groundbreaking research, exclusive clinical trials, and advanced surgical care to set the global standard in amyloidosis';
 
 const SectionHeading: React.FC<{ title: string; subtitle: string; strong?: boolean }> = ({ title, subtitle, strong = false }) => (
   <div style={{ marginBottom: '24px' }}>
@@ -371,29 +367,18 @@ export const AboutProgramSection: React.FC = () => (
           >
             Why Mayo is recognized in this field
           </h3>
-          <ul
+          <p
             style={{
               margin: 0,
-              paddingLeft: '18px',
-              display: 'grid',
-              gap: '8px',
+              fontSize: '14px',
+              fontWeight: 300,
+              color: '#000000',
+              lineHeight: 1.7,
+              fontFamily: FONT,
             }}
           >
-            {recognitionPoints.map((point) => (
-              <li
-                key={point}
-                style={{
-                  fontSize: '14px',
-                  fontWeight: 300,
-                  color: '#000000',
-                  lineHeight: 1.7,
-                  fontFamily: FONT,
-                }}
-              >
-                {point}
-              </li>
-            ))}
-          </ul>
+            {recognitionDescription}
+          </p>
         </div>
       </div>
     </details>
