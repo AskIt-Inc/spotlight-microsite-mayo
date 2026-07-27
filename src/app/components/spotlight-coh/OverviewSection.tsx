@@ -122,32 +122,14 @@ export const OverviewSection: React.FC = () => (
             fontFamily: FONT,
           }}
         >
-          70-Year Legacy of Care: Mayo Clinic has cared for people with amyloidosis for more
-          than seven decades, with dedicated expertise across its Arizona, Florida and Minnesota
-          campuses.
-        </p>
-      </blockquote>
-
-      <blockquote
-        style={{
-          margin: '0 0 32px 0',
-          borderLeft: `4px solid ${BRAND}`,
-          paddingLeft: '20px',
-        }}
-      >
-        <p
-          style={{
-            fontSize: '20px',
-            fontWeight: 300,
-            color: '#000000',
-            lineHeight: 1.5,
-            margin: 0,
-            fontFamily: FONT,
-          }}
-        >
-          Deep Amyloidosis Experience: Mayo Clinic specialists treat thousands of people with
-          amyloidosis each year, giving the team broad experience with both common and complex
-          presentations of this rare disease.
+          Backed by a 70-year legacy across its Arizona, Florida, and Minnesota campuses, the Mayo
+          Clinic Amyloidosis Program is a global powerhouse treating over 3,200 patients annually.
+          The program delivers holistic, patient-centered care, housing a complete multidisciplinary
+          team under a single roof to provide efficient three-day evaluations. Renowned for landmark
+          milestones, including the development of CyBorD therapy, mass-spectrometry amyloid typing,
+          and FDA-cleared AI diagnostics, Mayo Clinic seamlessly integrates groundbreaking research,
+          exclusive clinical trials, and advanced surgical care to set the global standard in
+          amyloidosis treatment.
         </p>
       </blockquote>
 
@@ -365,7 +347,7 @@ export const AboutProgramSection: React.FC = () => (
               fontFamily: FONT,
             }}
           >
-            Why Mayo is recognized in this field
+            Why Mayo Clinic is recognized in this field
           </h3>
           <p
             style={{
