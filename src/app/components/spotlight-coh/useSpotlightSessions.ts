@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const SESSIONS_API_URL =
-  'https://somebodytotalkto.com/api/spotlight/microsite/sessions?partner=13455&status=all';
+  'https://somebodytotalkto.com/api/spotlight/microsite/sessions?partner=13455&status=all&base64=no';
 
 interface ApiPresenter {
   uid?: number;
