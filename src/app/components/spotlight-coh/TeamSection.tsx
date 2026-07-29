@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from 'react';
-import { CalendarDays, UserRound, Users, X } from 'lucide-react';
+import { CalendarDays, ExternalLink, UserRound, Users, X } from 'lucide-react';
 import {
   type NormalizedProfile,
   useSpotlightProfiles,
 } from './useSpotlightProfiles';
-import { useSpotlightSessions } from './useSpotlightSessions';
+import { type NormalizedSession, useSpotlightSessions } from './useSpotlightSessions';
 
 const FONT = 'gotham, sans-serif';
 
@@ -61,8 +61,9 @@ const EmptyState: React.FC<{ title: string; body: string }> = ({ title, body }) 
 
 const ProfileModal: React.FC<{
   profile: NormalizedProfile;
+  session?: NormalizedSession;
   onClose: () => void;
-}> = ({ profile, onClose }) => (
+}> = ({ profile, session, onClose }) => (
   <div
     role="presentation"
     onClick={(event) => {
@@ -102,12 +103,18 @@ const ProfileModal: React.FC<{
           borderBottom: '1px solid var(--oav-border)',
         }}
       >
-        <ProfilePhoto profile={profile} size={72} />
+        <ProfilePhoto
+          profile={profile}
+          size={72}
+          borderColor="#0057B8"
+          borderWidth={3}
+          iconColor="#0057B8"
+        />
         <div style={{ flex: 1, minWidth: 0 }}>
           <h3
             id={`profile-title-${profile.uid}`}
             style={{
-              fontSize: '18px',
+              fontSize: '17px',
               fontWeight: 700,
               color: '#000000',
               margin: 0,
@@ -116,19 +123,32 @@ const ProfileModal: React.FC<{
           >
             {profile.displayName}
           </h3>
-          <p
-            style={{
-              fontSize: '14px',
-              color: 'var(--oav-brand)',
-              margin: '4px 0 0',
-              lineHeight: 1.5,
-              fontFamily: FONT,
-            }}
-          >
-            {[profile.titlePrefix, profile.specialtyLine1, profile.specialtyLine2]
-              .filter(Boolean)
-              .join(' · ')}
-          </p>
+          {(profile.titlePrefix || profile.specialtyLine1) && (
+            <p
+              style={{
+                fontSize: '13px',
+                color: '#000000',
+                margin: '2px 0 0',
+                lineHeight: 1.5,
+                fontFamily: FONT,
+              }}
+            >
+              {[profile.titlePrefix, profile.specialtyLine1].filter(Boolean).join(' · ')}
+            </p>
+          )}
+          {profile.specialtyLine2 && (
+            <p
+              style={{
+                fontSize: '13px',
+                color: '#0057B8',
+                margin: '2px 0 0',
+                lineHeight: 1.5,
+                fontFamily: FONT,
+              }}
+            >
+              {profile.specialtyLine2}
+            </p>
+          )}
         </div>
         <button
           type="button"
@@ -158,6 +178,84 @@ const ProfileModal: React.FC<{
       >
         {profile.bio}
       </p>
+      {session && (
+        <div style={{ padding: '0 24px 24px' }}>
+          <div
+            style={{
+              background: '#E1F0FF',
+              border: '1px solid #AFD7FF',
+              borderRadius: '8px',
+              padding: '16px',
+            }}
+          >
+            <div
+              style={{
+                color: '#0057B8',
+                fontFamily: FONT,
+                fontSize: '11px',
+                fontWeight: 700,
+                letterSpacing: '0.1em',
+                marginBottom: '4px',
+                textTransform: 'uppercase',
+              }}
+            >
+              Session: {[session.month, session.day].filter(Boolean).join(' ')}
+            </div>
+            <h4
+              style={{
+                color: '#002443',
+                fontFamily: FONT,
+                fontSize: '15px',
+                fontWeight: 700,
+                lineHeight: 1.4,
+                margin: '0 0 6px',
+              }}
+            >
+              {session.title}
+            </h4>
+            {session.description && (
+              <p
+                style={{
+                  color: '#002443',
+                  fontFamily: FONT,
+                  fontSize: '14px',
+                  fontWeight: 300,
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}
+              >
+                {session.description}
+              </p>
+            )}
+          </div>
+          {session.canRegister && (
+            <a
+              href={session.regUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                alignItems: 'center',
+                background: '#0057B8',
+                borderRadius: '5px',
+                boxSizing: 'border-box',
+                color: '#ffffff',
+                display: 'inline-flex',
+                fontFamily: FONT,
+                fontSize: '14px',
+                fontWeight: 400,
+                gap: '8px',
+                justifyContent: 'center',
+                marginTop: '16px',
+                padding: '10px 16px',
+                textDecoration: 'none',
+                width: '100%',
+              }}
+            >
+              Register for this session <ExternalLink size={14} color="#ffffff" />
+            </a>
+          )}
+        </div>
+      )}
     </div>
   </div>
 );
@@ -165,7 +263,10 @@ const ProfileModal: React.FC<{
 const ProfilePhoto: React.FC<{
   profile: NormalizedProfile;
   size?: number;
-}> = ({ profile, size = 60 }) => (
+  borderColor?: string;
+  borderWidth?: number;
+  iconColor?: string;
+}> = ({ profile, size = 60, borderColor = 'var(--oav-brand)', borderWidth = 2, iconColor = 'var(--oav-brand)' }) => (
   <div
     style={{
       width: `${size}px`,
@@ -173,7 +274,7 @@ const ProfilePhoto: React.FC<{
       borderRadius: '9999px',
       overflow: 'hidden',
       background: 'var(--oav-brand-light)',
-      border: '2px solid var(--oav-brand)',
+      border: `${borderWidth}px solid ${borderColor}`,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -187,7 +288,7 @@ const ProfilePhoto: React.FC<{
         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
       />
     ) : (
-      <UserRound size={Math.round(size * 0.38)} color="var(--oav-brand)" />
+      <UserRound size={Math.round(size * 0.38)} color={iconColor} />
     )}
   </div>
 );
@@ -195,7 +296,8 @@ const ProfilePhoto: React.FC<{
 const ProfileRow: React.FC<{
   profile: NormalizedProfile;
   sessionDates: string[];
-}> = ({ profile, sessionDates }) => {
+  session?: NormalizedSession;
+}> = ({ profile, sessionDates, session }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -295,7 +397,7 @@ const ProfileRow: React.FC<{
           </button>
         )}
       </article>
-      {open && <ProfileModal profile={profile} onClose={() => setOpen(false)} />}
+      {open && <ProfileModal profile={profile} session={session} onClose={() => setOpen(false)} />}
     </>
   );
 };
@@ -321,6 +423,20 @@ export const TeamSection: React.FC = () => {
     }
 
     return datesByProfile;
+  }, [sessions]);
+  const sessionByProfile = useMemo(() => {
+    const sessionsByProfile = new Map<number, NormalizedSession>();
+
+    for (const session of sessions) {
+      for (const presenterUid of session.presenterUids) {
+        const existing = sessionsByProfile.get(presenterUid);
+        if (!existing || (session.status === 'upcoming' && existing.status !== 'upcoming')) {
+          sessionsByProfile.set(presenterUid, session);
+        }
+      }
+    }
+
+    return sessionsByProfile;
   }, [sessions]);
 
   return (
@@ -372,6 +488,7 @@ export const TeamSection: React.FC = () => {
               key={profile.uid}
               profile={profile}
               sessionDates={sessionDatesByProfile.get(profile.uid) ?? []}
+              session={sessionByProfile.get(profile.uid)}
             />
           ))}
         </div>
