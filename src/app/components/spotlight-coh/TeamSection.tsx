@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { CalendarDays, UserRound, X } from 'lucide-react';
+import { CalendarDays, UserRound, Users, X } from 'lucide-react';
 import {
   type NormalizedProfile,
   useSpotlightProfiles,
@@ -230,7 +230,7 @@ const ProfileRow: React.FC<{
             <p
               style={{
                 fontSize: '14px',
-                fontWeight: 600,
+                fontWeight: 300,
                 color: '#000000',
                 margin: '4px 0 0',
                 lineHeight: 1.45,
@@ -246,8 +246,8 @@ const ProfileRow: React.FC<{
             <p
               style={{
                 fontSize: '14px',
-                fontWeight: 600,
-                color: '#000000',
+                fontWeight: 300,
+                color: '#002443',
                 margin: '3px 0 0',
                 lineHeight: 1.45,
                 fontFamily: FONT,
@@ -262,9 +262,9 @@ const ProfileRow: React.FC<{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
-                color: 'var(--oav-brand)',
-                fontSize: '14px',
-                fontWeight: 600,
+                color: '#002443',
+                fontSize: '12px',
+                fontWeight: 400,
                 marginTop: '6px',
                 fontFamily: FONT,
               }}
@@ -326,25 +326,27 @@ export const TeamSection: React.FC = () => {
   return (
     <section className="section-inner" style={{ background: 'var(--oav-page-bg)', padding: '24px 0 8px' }}>
       <div style={{ marginBottom: '24px' }}>
-        <h2
-          style={{
-            fontSize: '28px',
-            fontWeight: 700,
-            color: '#000000',
-            margin: 0,
-            lineHeight: 1.3,
-            fontFamily: FONT,
-          }}
-        >
-          Meet the Team
-        </h2>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+          <Users size={18} color="var(--oav-brand)" aria-hidden="true" />
+          <h2
+            style={{
+              fontSize: '28px',
+              fontWeight: 300,
+              color: '#000000',
+              margin: 0,
+              lineHeight: 1.3,
+              fontFamily: FONT,
+            }}
+          >
+            Meet the Team
+          </h2>
+        </div>
         <p
           style={{
             fontSize: '14px',
-            fontWeight: 600,
-            color: '#000000',
-            marginTop: '8px',
-            marginBottom: 0,
+            fontWeight: 400,
+            color: '#686868',
+            margin: 0,
             fontFamily: FONT,
             lineHeight: 1.5,
           }}

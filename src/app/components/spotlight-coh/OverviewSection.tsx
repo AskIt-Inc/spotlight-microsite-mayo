@@ -38,7 +38,7 @@ const SectionHeading: React.FC<{ title: string; subtitle: string; strong?: boole
     <h2
       style={{
         fontSize: '28px',
-        fontWeight: 700,
+        fontWeight: 300,
         color: 'rgb(0, 0, 0)',
         margin: 0,
         lineHeight: 1.3,
@@ -50,10 +50,9 @@ const SectionHeading: React.FC<{ title: string; subtitle: string; strong?: boole
     <p
       style={{
         fontSize: '14px',
-        fontWeight: 600,
-        color: 'rgb(28, 28, 28)',
-        marginTop: '8px',
-        marginBottom: '20px',
+        fontWeight: 400,
+        color: '#686868',
+        margin: '8px 0 20px',
         fontFamily: FONT,
         lineHeight: 1.5,
       }}

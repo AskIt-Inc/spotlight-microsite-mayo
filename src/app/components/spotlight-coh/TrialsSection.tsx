@@ -151,8 +151,9 @@ export const TrialsSection: React.FC = () => {
   return (
     <section style={{ background: 'var(--oav-page-bg)', padding: '16px 0 56px' }}>
       <div className="trials-section-inner">
-        <h2 style={{ color: 'var(--oav-text-primary)', fontFamily: FONT, fontSize: '28px', fontWeight: 700, lineHeight: 1.3, margin: 0 }}>Clinical Trials</h2>
-        <a href={MAYO_TRIALS_URL} target="_blank" rel="noopener noreferrer" style={{ alignItems: 'center', color: '#1C1C1C', display: 'inline-flex', fontFamily: FONT, fontSize: '14px', fontWeight: 600, gap: '4px', marginTop: '8px', textDecoration: 'none' }}><ExternalLink size={13} /> View all at Mayo Clinic</a>
+        <h2 style={{ color: 'var(--oav-text-primary)', fontFamily: FONT, fontSize: '28px', fontWeight: 300, lineHeight: 1.3, margin: 0 }}>Clinical Trials</h2>
+        <p style={{ color: '#686868', fontFamily: FONT, fontSize: '14px', fontWeight: 400, lineHeight: 1.5, margin: '8px 0 0' }}>Current amyloidosis clinical trials at Mayo Clinic</p>
+        <a href={MAYO_TRIALS_URL} target="_blank" rel="noopener noreferrer" style={{ alignItems: 'center', color: '#0057B8', display: 'inline-flex', fontFamily: FONT, fontSize: '14px', fontWeight: 400, gap: '4px', marginTop: '16px', textDecoration: 'none' }}><ExternalLink size={13} /> View all at Mayo Clinic</a>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '32px' }}>
           {trials.map((trial) => <TrialCard key={trial.id} trial={trial} />)}
           {!loadError && trials.length === 0 && <p style={{ fontFamily: FONT }}>Loading current trial availability…</p>}

@@ -37,7 +37,7 @@ export const HighlightsSection: React.FC = () => (
       <h2
         style={{
           fontSize: '28px',
-          fontWeight: 700,
+          fontWeight: 300,
           color: '#000000',
           margin: 0,
           lineHeight: 1.3,
@@ -49,10 +49,9 @@ export const HighlightsSection: React.FC = () => (
       <p
         style={{
           fontSize: '14px',
-          fontWeight: 600,
-          color: '#355070',
-          marginTop: '8px',
-          marginBottom: 0,
+          fontWeight: 400,
+          color: '#686868',
+          margin: '8px 0 0',
           fontFamily: FONT,
           lineHeight: 1.5,
         }}
