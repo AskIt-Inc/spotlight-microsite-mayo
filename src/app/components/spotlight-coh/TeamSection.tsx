@@ -332,7 +332,7 @@ const ProfileRow: React.FC<{
             <p
               style={{
                 fontSize: '14px',
-                fontWeight: 300,
+                fontWeight: 700,
                 color: '#000000',
                 margin: '4px 0 0',
                 lineHeight: 1.45,
@@ -348,8 +348,8 @@ const ProfileRow: React.FC<{
             <p
               style={{
                 fontSize: '14px',
-                fontWeight: 300,
-                color: '#002443',
+                fontWeight: 400,
+                color: 'rgb(0, 87, 184)',
                 margin: '3px 0 0',
                 lineHeight: 1.45,
                 fontFamily: FONT,
