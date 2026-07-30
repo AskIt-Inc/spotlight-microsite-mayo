@@ -127,6 +127,7 @@ const ProfileModal: React.FC<{
             <p
               style={{
                 fontSize: '13px',
+                fontWeight: 700,
                 color: '#000000',
                 margin: '2px 0 0',
                 lineHeight: 1.5,
@@ -140,7 +141,8 @@ const ProfileModal: React.FC<{
             <p
               style={{
                 fontSize: '13px',
-                color: '#0057B8',
+                fontWeight: 400,
+                color: 'rgb(0, 87, 184)',
                 margin: '2px 0 0',
                 lineHeight: 1.5,
                 fontFamily: FONT,
