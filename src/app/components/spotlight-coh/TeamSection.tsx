@@ -1,7 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { CalendarDays, ExternalLink, UserRound, Users, X } from 'lucide-react';
+import { CalendarDays, ExternalLink, UserRound, X } from 'lucide-react';
 import {
   type NormalizedProfile,
+  type TeamCategory,
+  type TeamHierarchySection,
   useSpotlightProfiles,
 } from './useSpotlightProfiles';
 import { type NormalizedSession, useSpotlightSessions } from './useSpotlightSessions';
@@ -404,8 +406,122 @@ const ProfileRow: React.FC<{
   );
 };
 
+const CategoryGroup: React.FC<{
+  category: TeamCategory;
+  sectionKey: string;
+  sessionDatesByProfile: Map<number, string[]>;
+  sessionByProfile: Map<number, NormalizedSession>;
+}> = ({ category, sectionKey, sessionDatesByProfile, sessionByProfile }) => (
+  <div>
+    {category.label && category.label.toLowerCase() !== 'uncategorized' && (
+      <h3
+        style={{
+          color: '#002443',
+          fontFamily: FONT,
+          fontSize: '18px',
+          fontWeight: 700,
+          margin: '0 0 12px',
+        }}
+      >
+        {category.label}
+      </h3>
+    )}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      {category.members.map((profile) => (
+        <ProfileRow
+          key={`${sectionKey}-${category.id ?? 'uncategorized'}-${profile.uid}`}
+          profile={profile}
+          sessionDates={sessionDatesByProfile.get(profile.uid) ?? []}
+          session={sessionByProfile.get(profile.uid)}
+        />
+      ))}
+    </div>
+  </div>
+);
+
+const HierarchySection: React.FC<{
+  section: TeamHierarchySection;
+  sessionDatesByProfile: Map<number, string[]>;
+  sessionByProfile: Map<number, NormalizedSession>;
+}> = ({ section, sessionDatesByProfile, sessionByProfile }) => {
+  const [selectedLocationId, setSelectedLocationId] = useState(section.locations[0]?.id);
+  const selectedLocation = section.locations.find(({ id }) => id === selectedLocationId)
+    ?? section.locations[0];
+  const categories = selectedLocation ? selectedLocation.categories : section.categories;
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <h2
+        style={{
+          fontSize: '28px',
+          fontWeight: 300,
+          color: '#000000',
+          margin: 0,
+          lineHeight: 1.3,
+          fontFamily: FONT,
+        }}
+      >
+        {section.label}
+      </h2>
+
+      {section.locations.length > 0 && (
+        <div
+          role="tablist"
+          aria-label={`${section.label} locations`}
+          style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}
+        >
+          {section.locations.map((location) => {
+            const selected = location.id === selectedLocation?.id;
+            return (
+              <button
+                key={location.id}
+                type="button"
+                role="tab"
+                aria-selected={selected}
+                onClick={() => setSelectedLocationId(location.id)}
+                style={{
+                  background: selected ? '#0057B8' : 'var(--oav-card-bg)',
+                  border: '1px solid #0057B8',
+                  borderRadius: '9999px',
+                  color: selected ? '#ffffff' : '#0057B8',
+                  cursor: 'pointer',
+                  fontFamily: FONT,
+                  fontSize: '14px',
+                  fontWeight: 700,
+                  padding: '8px 14px',
+                }}
+              >
+                {location.label}
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {categories.length > 0 ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          {categories.map((category) => (
+            <CategoryGroup
+              key={`${section.key}-${selectedLocation?.id ?? 'section'}-${category.id ?? 'uncategorized'}`}
+              category={category}
+              sectionKey={section.key}
+              sessionDatesByProfile={sessionDatesByProfile}
+              sessionByProfile={sessionByProfile}
+            />
+          ))}
+        </div>
+      ) : (
+        <EmptyState
+          title="No team profiles are available for this location."
+          body="Profiles will appear here when assignments are available from the microsite API."
+        />
+      )}
+    </div>
+  );
+};
+
 export const TeamSection: React.FC = () => {
-  const { profiles, loading } = useSpotlightProfiles();
+  const { sections, loading } = useSpotlightProfiles();
   const { sessions } = useSpotlightSessions();
   const sessionDatesByProfile = useMemo(() => {
     const datesByProfile = new Map<number, string[]>();
@@ -443,54 +559,24 @@ export const TeamSection: React.FC = () => {
 
   return (
     <section className="section-inner" style={{ background: 'var(--oav-page-bg)', padding: '24px 0 8px' }}>
-      <div style={{ marginBottom: '24px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
-          <Users size={18} color="var(--oav-brand)" aria-hidden="true" />
-          <h2
-            style={{
-              fontSize: '28px',
-              fontWeight: 300,
-              color: '#000000',
-              margin: 0,
-              lineHeight: 1.3,
-              fontFamily: FONT,
-            }}
-          >
-            Meet the Team
-          </h2>
-        </div>
-        <p
-          style={{
-            fontSize: '14px',
-            fontWeight: 400,
-            color: '#686868',
-            margin: 0,
-            fontFamily: FONT,
-            lineHeight: 1.5,
-          }}
-        >
-          Mayo Clinic — the multidisciplinary team behind the Amyloidosis Program
-        </p>
-      </div>
-
       {loading ? (
         <EmptyState
           title="Loading partner profiles"
           body="Checking for Mayo team profiles now."
         />
-      ) : profiles.length === 0 ? (
+      ) : sections.length === 0 ? (
         <EmptyState
           title="No team profiles are available at this time."
           body="Team profiles will appear here when they are available from the microsite API."
         />
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          {profiles.map((profile) => (
-            <ProfileRow
-              key={profile.uid}
-              profile={profile}
-              sessionDates={sessionDatesByProfile.get(profile.uid) ?? []}
-              session={sessionByProfile.get(profile.uid)}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '36px' }}>
+          {sections.map((section) => (
+            <HierarchySection
+              key={section.key}
+              section={section}
+              sessionDatesByProfile={sessionDatesByProfile}
+              sessionByProfile={sessionByProfile}
             />
           ))}
         </div>
