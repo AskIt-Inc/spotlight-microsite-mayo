@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { AlertCircle, CheckCircle, ExternalLink } from 'lucide-react';
 import { mayoAmyloidosisTrialIds, type Trial } from './data';
 import { useFormProtection } from '../../hooks/useFormProtection';
+import { stttApiUrl } from '../../lib/stttApi';
 
 const FONT = 'gotham, sans-serif';
-const ENDPOINT = 'https://somebodytotalkto.com/api/spotlight/research-interest';
+const ENDPOINT = stttApiUrl('/api/spotlight/research-interest');
 const MAYO_TRIALS_URL = 'https://www.mayo.edu/research/clinical-trials/diseases-conditions/amyloidosis';
 const PARTNER_TID = 13455;
 const CLINICAL_TRIALS_API_URL = 'https://clinicaltrials.gov/api/v2/studies';

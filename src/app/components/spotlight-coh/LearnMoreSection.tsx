@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import { stttApiUrl } from '../../lib/stttApi';
 
 const FONT = 'gotham, sans-serif';
-const EMPLOYER_LOGOS_API_URL = 'https://somebodytotalkto.com/api/session-editor/partners/logos';
+const EMPLOYER_LOGOS_API_URL = stttApiUrl('/api/session-editor/partners/logos');
 
 interface EmployerLogo {
   tid: number;

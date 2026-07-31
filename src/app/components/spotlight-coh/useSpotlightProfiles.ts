@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
+import { stttApiUrl } from '../../lib/stttApi';
 
 const TEAM_API_URL =
-  'https://somebodytotalkto.com/api/spotlight/microsite/team?partner=13455&series=5&base64=no';
+  stttApiUrl('/api/spotlight/microsite/team?partner=13455&series=5&base64=no');
 
 interface ApiProfile {
   uid: number;

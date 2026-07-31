@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import { stttApiUrl } from '../../lib/stttApi';
 
 const SESSIONS_API_URL =
-  'https://somebodytotalkto.com/api/spotlight/microsite/sessions?partner=13455&status=all&base64=no';
+  stttApiUrl('/api/spotlight/microsite/sessions?partner=13455&status=all&base64=no');
 
 interface ApiPresenter {
   uid?: number;
