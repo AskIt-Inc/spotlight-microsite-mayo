@@ -20,6 +20,12 @@ interface ApiProfile {
   indication: string;
   highlights?: string[];
   extended_content?: string;
+  appointment_url?: string;
+  video_url?: string;
+  featured_session?: {
+    registration_url?: string;
+    video_url?: string;
+  };
 }
 
 interface ApiCategory {
@@ -68,6 +74,9 @@ export interface NormalizedProfile {
   indication: string;
   highlights: string[];
   extendedContent: string[];
+  appointmentUrl: string;
+  videoUrl: string;
+  registrationUrl: string;
 }
 
 export interface TeamCategory {
@@ -109,6 +118,15 @@ function cleanExtendedContent(value: string): string[] {
     .filter(Boolean);
 }
 
+function cleanExternalUrl(value: string): string {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' || url.protocol === 'http:' ? url.toString() : '';
+  } catch {
+    return '';
+  }
+}
+
 function normalizeLastName(lastName: string, suffix: string): string {
   let normalized = lastName.trim();
 
@@ -143,6 +161,9 @@ function normalizeProfile(profile: ApiProfile): NormalizedProfile {
     indication: profile.indication ?? '',
     highlights: (profile.highlights ?? []).map(stripHtml).filter(Boolean),
     extendedContent: cleanExtendedContent(profile.extended_content ?? ''),
+    appointmentUrl: cleanExternalUrl(profile.appointment_url ?? ''),
+    videoUrl: cleanExternalUrl(profile.video_url || profile.featured_session?.video_url || ''),
+    registrationUrl: cleanExternalUrl(profile.featured_session?.registration_url ?? ''),
   };
 }
 
