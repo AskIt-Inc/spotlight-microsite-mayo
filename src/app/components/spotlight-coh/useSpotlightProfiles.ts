@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { stttApiUrl } from '../../lib/stttApi';
+import { stttApiUrl, stttAssetUrl } from '../../lib/stttApi';
 
 const TEAM_API_URL =
   stttApiUrl('/api/spotlight/microsite/team?partner=13455&series=5&base64=no');
@@ -18,6 +18,8 @@ interface ApiProfile {
   photo_url: string;
   employer: string;
   indication: string;
+  highlights?: string[];
+  extended_content?: string;
 }
 
 interface ApiCategory {
@@ -44,6 +46,7 @@ interface ApiSection {
 
 interface ApiTeamResponse {
   data?: {
+    meet_the_directors?: ApiProfile[];
     sections?: ApiSection[];
   };
 }
@@ -63,6 +66,8 @@ export interface NormalizedProfile {
   photoUrl: string;
   employer: string;
   indication: string;
+  highlights: string[];
+  extendedContent: string[];
 }
 
 export interface TeamCategory {
@@ -95,6 +100,15 @@ function cleanProfileBio(profile: ApiProfile): string {
   return stripHtml(profile.bio ?? '');
 }
 
+function cleanExtendedContent(value: string): string[] {
+  return value
+    .replace(/<\/(?:p|li)>/gi, '\n')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .split('\n')
+    .map(stripHtml)
+    .filter(Boolean);
+}
+
 function normalizeLastName(lastName: string, suffix: string): string {
   let normalized = lastName.trim();
 
@@ -124,9 +138,11 @@ function normalizeProfile(profile: ApiProfile): NormalizedProfile {
     spotlightCardTag: profile.spotlight_card_tag ?? '',
     titlePrefix: profile.title ?? '',
     bio: cleanProfileBio(profile),
-    photoUrl: profile.photo_url ?? '',
+    photoUrl: stttAssetUrl(profile.photo_url ?? ''),
     employer: profile.employer ?? '',
     indication: profile.indication ?? '',
+    highlights: (profile.highlights ?? []).map(stripHtml).filter(Boolean),
+    extendedContent: cleanExtendedContent(profile.extended_content ?? ''),
   };
 }
 
@@ -167,6 +183,7 @@ function normalizeSections(sections: ApiSection[] = []): TeamHierarchySection[] 
 export function useSpotlightProfiles() {
   const [sections, setSections] = useState<TeamHierarchySection[]>([]);
   const [profiles, setProfiles] = useState<NormalizedProfile[]>([]);
+  const [directors, setDirectors] = useState<NormalizedProfile[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -183,6 +200,7 @@ export function useSpotlightProfiles() {
 
         const payload = (await response.json()) as ApiTeamResponse;
         const normalizedSections = normalizeSections(payload.data?.sections);
+        const normalizedDirectors = normalizeMembers(payload.data?.meet_the_directors);
         const normalizedProfiles: NormalizedProfile[] = [];
         const seen = new Set<number>();
 
@@ -203,6 +221,7 @@ export function useSpotlightProfiles() {
         if (!cancelled) {
           setSections(normalizedSections);
           setProfiles(normalizedProfiles);
+          setDirectors(normalizedDirectors);
           setError(null);
         }
       } catch (err) {
@@ -228,5 +247,5 @@ export function useSpotlightProfiles() {
     [profiles],
   );
 
-  return { sections, profiles, profileMap, loading, error };
+  return { sections, profiles, directors, profileMap, loading, error };
 }
