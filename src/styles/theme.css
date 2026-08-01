@@ -384,6 +384,7 @@ html, body {
 
   /* ── v2 sections: reduce horizontal padding on mobile ─────────────────────── */
   .v2-section {
+    background: transparent !important;
     padding-left: 16px !important;
     padding-right: 16px !important;
     padding-top: 28px !important;
@@ -391,9 +392,22 @@ html, body {
   }
 
   /* ── Overview section ───────────────────────────────────────────────────────── */
+  .overview-introduction {
+    background: var(--oav-card-bg);
+    border: 1px solid var(--oav-border) !important;
+    border-left: 4px solid var(--oav-brand) !important;
+    border-radius: 8px;
+    box-shadow: var(--oav-card-shadow);
+    padding: 20px !important;
+  }
+
   /* Pillars: 3-col grid → single column */
   .overview-pillars {
     grid-template-columns: 1fr !important;
+  }
+
+  .overview-pillars > div {
+    background: #ffffff !important;
   }
 
   /* ── Team cards ─────────────────────────────────────────────────────────────── */

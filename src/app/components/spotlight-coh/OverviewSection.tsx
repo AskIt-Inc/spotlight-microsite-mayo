@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSpotlightProfiles } from './useSpotlightProfiles';
+import type { NormalizedProfile } from './useSpotlightProfiles';
 
 const FONT = 'gotham, sans-serif';
 const BRAND = 'var(--oav-brand)';
@@ -109,6 +110,7 @@ export const OverviewSection: React.FC = () => (
   >
     <div>
       <blockquote
+        className="overview-introduction"
         style={{
           margin: '0 0 32px 0',
           borderLeft: `4px solid ${BRAND}`,
@@ -191,81 +193,172 @@ export const OverviewSection: React.FC = () => (
   </section>
 );
 
+const DirectorCard: React.FC<{ director: NormalizedProfile }> = ({ director }) => {
+  const [expanded, setExpanded] = useState(false);
+  const extendedContent = [director.bio, ...director.extendedContent].filter(Boolean);
+
+  return (
+    <div
+      style={{
+        background: 'var(--oav-card-bg)',
+        border: '1px solid var(--oav-border)',
+        borderRadius: '8px',
+        padding: '24px',
+      }}
+    >
+      <div
+        className="director-profile-row"
+        style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', marginBottom: '16px' }}
+      >
+        {director.photoUrl && (
+          <img
+            src={director.photoUrl}
+            alt={director.displayName}
+            style={{
+              width: '120px',
+              height: '120px',
+              borderRadius: '50%',
+              objectFit: 'cover',
+              objectPosition: 'center top',
+              border: `3px solid ${BRAND}`,
+              flexShrink: 0,
+            }}
+          />
+        )}
+        <div style={{ fontFamily: FONT, minWidth: 0 }}>
+          <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#000000', lineHeight: 1.45, margin: 0 }}>
+            {director.displayName}
+          </h3>
+          {(director.titlePrefix || director.specialtyLine1) && (
+            <p
+              style={{
+                fontSize: '14px',
+                fontWeight: 700,
+                color: '#000000',
+                lineHeight: 1.45,
+                margin: '4px 0 0',
+                fontFamily: FONT,
+              }}
+            >
+              {[director.titlePrefix, director.specialtyLine1].filter(Boolean).join(', ')}
+            </p>
+          )}
+          {director.specialtyLine2 && (
+            <p
+              style={{
+                fontSize: '14px',
+                fontWeight: 400,
+                color: 'rgb(0, 87, 184)',
+                lineHeight: 1.45,
+                margin: '3px 0 0',
+                fontFamily: FONT,
+              }}
+            >
+              {director.specialtyLine2}
+            </p>
+          )}
+        </div>
+      </div>
+
+      {director.highlights.length > 0 && (
+        <div style={{ margin: '0 0 12px' }}>
+          {director.highlights.map((highlight) => (
+            <div
+              key={highlight}
+              style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginBottom: '8px' }}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: '3px' }}>
+                <circle cx="8" cy="8" r="8" fill="var(--oav-brand)" opacity="0.1" />
+                <path d="M4.5 8L7 10.5L11.5 5.5" stroke="var(--oav-brand)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span style={{ fontSize: '14px', color: '#000000', lineHeight: 1.6, fontFamily: FONT }}>
+                {highlight}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {extendedContent.length > 0 && (
+        <>
+          <button
+            type="button"
+            aria-expanded={expanded}
+            onClick={() => setExpanded((value) => !value)}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '6px 0',
+              fontSize: '13px',
+              fontWeight: 700,
+              color: BRAND,
+              fontFamily: FONT,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            <span>{expanded ? '▾' : '▸'}</span>
+            <span>{expanded ? 'Show less' : `Learn more about ${director.firstName || director.displayName}`}</span>
+          </button>
+
+          {expanded && (
+            <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid var(--oav-border)' }}>
+              {extendedContent.map((paragraph, index) => (
+                <p
+                  key={`${director.uid}-${index}`}
+                  style={{
+                    fontSize: '14px',
+                    fontWeight: 300,
+                    color: '#000000',
+                    lineHeight: 1.7,
+                    margin: '0 0 10px',
+                    fontFamily: FONT,
+                  }}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
+
 export const DirectorsSection: React.FC = () => {
-  const { profiles, loading } = useSpotlightProfiles();
+  const { directors, loading } = useSpotlightProfiles();
 
   return (
     <section className="section-inner" style={{ background: 'var(--oav-page-bg)', padding: '24px 0 8px' }}>
-      <SectionHeading
-        title="Meet the Directors"
-        subtitle="Leadership profiles will appear here when they are available from the microsite API"
-      />
+      <h2
+        style={{
+          fontSize: '28px',
+          fontWeight: 300,
+          color: '#000000',
+          fontFamily: FONT,
+          lineHeight: 1.3,
+          margin: '0 0 20px',
+        }}
+      >
+        Meet the {directors.length === 1 ? 'Director' : 'Directors'}
+      </h2>
 
       {loading ? (
         <EmptyPartnerState
           title="Loading partner profiles"
           body="Checking for Mayo partner profile data now."
         />
-      ) : profiles.length === 0 ? (
+      ) : directors.length === 0 ? (
         <EmptyPartnerState
           title="No partners are available at this time."
           body="Director profiles have not been provided through the partner profile API yet."
         />
       ) : (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-            gap: '14px',
-          }}
-        >
-          {profiles.slice(0, 3).map((profile) => (
-            <div
-              key={profile.uid}
-              style={{
-                background: 'var(--oav-card-bg)',
-                border: '1px solid var(--oav-border)',
-                borderRadius: '10px',
-                padding: '18px',
-              }}
-            >
-              <h3
-                style={{
-                  fontSize: '18px',
-                  fontWeight: 700,
-                  color: '#000000',
-                  margin: '0 0 6px',
-                  fontFamily: FONT,
-                }}
-              >
-                {profile.displayName}
-              </h3>
-              <p
-                style={{
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  color: '#000000',
-                  margin: '0 0 10px',
-                  lineHeight: 1.5,
-                  fontFamily: FONT,
-                }}
-              >
-                {[profile.titlePrefix, profile.specialtyLine1].filter(Boolean).join(' · ')}
-              </p>
-              <p
-                style={{
-                  fontSize: '14px',
-                  fontWeight: 300,
-                  color: '#000000',
-                  margin: 0,
-                  lineHeight: 1.7,
-                  fontFamily: FONT,
-                }}
-              >
-                {profile.bio || 'Profile copy is available through the Mayo partner feed.'}
-              </p>
-            </div>
-          ))}
+        <div style={{ display: 'grid', gap: '16px' }}>
+          {directors.map((director) => <DirectorCard key={director.uid} director={director} />)}
         </div>
       )}
     </section>
@@ -274,6 +367,7 @@ export const DirectorsSection: React.FC = () => {
 
 export const AboutProgramSection: React.FC = () => (
   <section
+    className="section-inner"
     style={{
       background: 'var(--oav-page-bg)',
       padding: '32px 0 24px',
