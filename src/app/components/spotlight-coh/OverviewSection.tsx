@@ -1,9 +1,26 @@
 import React, { useState } from 'react';
+import { CalendarDays, ExternalLink, PlayCircle } from 'lucide-react';
 import { useSpotlightProfiles } from './useSpotlightProfiles';
 import type { NormalizedProfile } from './useSpotlightProfiles';
 
 const FONT = 'gotham, sans-serif';
 const BRAND = 'var(--oav-brand)';
+const DIRECTOR_CTA_STYLE: React.CSSProperties = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '8px',
+  padding: '10px 18px',
+  borderRadius: '9999px',
+  background: '#0057B8',
+  border: '1px solid #0057B8',
+  color: '#ffffff',
+  fontFamily: FONT,
+  fontSize: '14px',
+  fontWeight: 700,
+  lineHeight: 1.4,
+  textDecoration: 'none',
+};
 
 const pillars = [
   {
@@ -323,6 +340,55 @@ const DirectorCard: React.FC<{ director: NormalizedProfile }> = ({ director }) =
             </div>
           )}
         </>
+      )}
+
+      {(director.registrationUrl || director.videoUrl || director.appointmentUrl) && (
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '10px',
+            marginTop: '16px',
+            paddingTop: '16px',
+            borderTop: '1px solid var(--oav-border)',
+          }}
+        >
+          {director.registrationUrl && (
+            <a
+              href={director.registrationUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={DIRECTOR_CTA_STYLE}
+            >
+              <CalendarDays size={16} aria-hidden="true" />
+              Register
+            </a>
+          )}
+
+          {director.videoUrl && (
+            <a
+              href={director.videoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={DIRECTOR_CTA_STYLE}
+            >
+              <PlayCircle size={16} aria-hidden="true" />
+              Watch video
+            </a>
+          )}
+
+          {director.appointmentUrl && (
+            <a
+              href={director.appointmentUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={DIRECTOR_CTA_STYLE}
+            >
+              Schedule an appointment
+              <ExternalLink size={15} aria-hidden="true" />
+            </a>
+          )}
+        </div>
       )}
     </div>
   );
