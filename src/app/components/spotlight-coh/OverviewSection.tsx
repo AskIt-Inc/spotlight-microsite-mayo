@@ -213,6 +213,14 @@ export const OverviewSection: React.FC = () => (
 const DirectorCard: React.FC<{ director: NormalizedProfile }> = ({ director }) => {
   const [expanded, setExpanded] = useState(false);
   const extendedContent = [director.bio, ...director.extendedContent].filter(Boolean);
+  const profilePrefix = director.titlePrefix
+    ? `${director.titlePrefix.replace(/\.+$/, '')}.`
+    : /\b(?:MD|DO|MBBS)\b/i.test(director.nameSuffix)
+      ? 'Dr.'
+      : '';
+  const profileFullName = [director.firstName, director.lastName].filter(Boolean).join(' ')
+    || director.displayName;
+  const learnMoreLabel = `Learn more about ${[profilePrefix, profileFullName].filter(Boolean).join(' ')}`;
 
   return (
     <div
@@ -317,7 +325,7 @@ const DirectorCard: React.FC<{ director: NormalizedProfile }> = ({ director }) =
             }}
           >
             <span>{expanded ? '▾' : '▸'}</span>
-            <span>{expanded ? 'Show less' : `Learn more about ${director.firstName || director.displayName}`}</span>
+            <span>{learnMoreLabel}</span>
           </button>
 
           {expanded && (
