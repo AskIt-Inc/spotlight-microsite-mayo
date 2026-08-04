@@ -260,6 +260,39 @@ const ProfileModal: React.FC<{
           )}
         </div>
       )}
+      {profile.appointmentUrl && (
+        <div
+          style={{
+            borderTop: '1px solid var(--oav-border)',
+            margin: '0 24px',
+            padding: '16px 0 24px',
+          }}
+        >
+          <a
+            href={profile.appointmentUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              alignItems: 'center',
+              border: '1px solid #0057B8',
+              borderRadius: '5px',
+              boxSizing: 'border-box',
+              color: '#0057B8',
+              display: 'inline-flex',
+              fontFamily: FONT,
+              fontSize: '14px',
+              fontWeight: 400,
+              gap: '8px',
+              justifyContent: 'center',
+              padding: '10px 16px',
+              textDecoration: 'none',
+              width: '100%',
+            }}
+          >
+            Schedule an appointment <ExternalLink size={14} aria-hidden="true" />
+          </a>
+        </div>
+      )}
     </div>
   </div>
 );
