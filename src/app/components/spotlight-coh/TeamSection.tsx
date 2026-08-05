@@ -231,33 +231,30 @@ const ProfileModal: React.FC<{
                 {session.description}
               </p>
             )}
+            {session.canRegister && (
+              <a
+                href={session.regUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  alignItems: 'center',
+                  background: '#0057B8',
+                  borderRadius: '5px',
+                  color: '#ffffff',
+                  display: 'inline-flex',
+                  fontFamily: FONT,
+                  fontSize: '13px',
+                  fontWeight: 400,
+                  gap: '6px',
+                  marginTop: '12px',
+                  padding: '8px 12px',
+                  textDecoration: 'none',
+                }}
+              >
+                <CalendarDays size={14} aria-hidden="true" /> Register
+              </a>
+            )}
           </div>
-          {session.canRegister && (
-            <a
-              href={session.regUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                alignItems: 'center',
-                background: '#0057B8',
-                borderRadius: '5px',
-                boxSizing: 'border-box',
-                color: '#ffffff',
-                display: 'inline-flex',
-                fontFamily: FONT,
-                fontSize: '14px',
-                fontWeight: 400,
-                gap: '8px',
-                justifyContent: 'center',
-                marginTop: '16px',
-                padding: '10px 16px',
-                textDecoration: 'none',
-                width: '100%',
-              }}
-            >
-              Register for this session <ExternalLink size={14} color="#ffffff" />
-            </a>
-          )}
         </div>
       )}
       {profile.appointmentUrl && (
