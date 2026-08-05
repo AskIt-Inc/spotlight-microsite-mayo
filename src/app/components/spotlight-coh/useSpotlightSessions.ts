@@ -129,7 +129,7 @@ function normalizeApiSessions(apiSessions: ApiSession[]): NormalizedSession[] {
       presenterLastName: firstPresenter?.last_name ?? '',
       status: dateParts.status,
       regUrl,
-      canRegister: workflowStatus === 'published' && approvalStatus === 'approved' && Boolean(regUrl),
+      canRegister: dateParts.status === 'upcoming' && Boolean(regUrl),
       hasPresenter: Boolean(firstPresenter),
       approvalStatus,
       workflowStatus,
