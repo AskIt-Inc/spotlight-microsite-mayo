@@ -134,7 +134,7 @@ const SidebarSessionRow: React.FC<{ session: NormalizedSession }> = ({ session }
             style={{
               marginTop: '8px',
               padding: '5px 12px',
-              background: hovered ? 'var(--oav-brand-hover)' : 'var(--oav-brand)',
+              background: hovered ? '#00458F' : MAYO_BLUE,
               color: '#ffffff',
               border: 'none',
               borderRadius: '4px',
