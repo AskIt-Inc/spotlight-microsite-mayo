@@ -7,11 +7,7 @@ const MAYO_BLUE = '#0057B8';
 
 const SidebarSessionRow: React.FC<{ session: NormalizedSession }> = ({ session }) => {
   const [hovered, setHovered] = useState(false);
-  const statusBadge = {
-    draft: { label: 'Draft', background: '#E5E7EB', color: '#374151' },
-    pending: { label: 'Pending approval', background: '#FEF3C7', color: '#92400E' },
-    published: { label: 'Published', background: '#DCFCE7', color: '#166534' },
-  }[session.workflowStatus];
+  const isPending = session.workflowStatus === 'pending';
 
   return (
     <div
@@ -108,22 +104,24 @@ const SidebarSessionRow: React.FC<{ session: NormalizedSession }> = ({ session }
           {session.hasPresenter ? session.presenter : 'Presenter TBD'}
         </div>
 
-        <div
-          style={{
-            display: 'inline-flex',
-            marginTop: '7px',
-            padding: '3px 7px',
-            borderRadius: '9999px',
-            background: statusBadge.background,
-            color: statusBadge.color,
-            fontSize: '10px',
-            fontWeight: 700,
-            lineHeight: 1.2,
-            fontFamily: FONT,
-          }}
-        >
-          {statusBadge.label}
-        </div>
+        {isPending && (
+          <div
+            style={{
+              display: 'inline-flex',
+              marginTop: '7px',
+              padding: '3px 7px',
+              borderRadius: '9999px',
+              background: '#FEF3C7',
+              color: '#92400E',
+              fontSize: '10px',
+              fontWeight: 700,
+              lineHeight: 1.2,
+              fontFamily: FONT,
+            }}
+          >
+            Pending approval
+          </div>
+        )}
 
         {session.canRegister && (
           <a
